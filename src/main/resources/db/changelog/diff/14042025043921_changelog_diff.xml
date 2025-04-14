@@ -1,0 +1,60 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="ram (generated)" id="1744605564520-1">
+        <createTable tableName="delivery_history">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="delivery_historyPK"/>
+            </column>
+            <column name="delivery_details" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dispatched_at" type="timestamp(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueBoolean="false" name="status" type="TINYINT"/>
+            <column name="message_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ram (generated)" id="1744605564520-2">
+        <createTable tableName="message">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="messagePK"/>
+            </column>
+            <column name="attachment_path" type="VARCHAR(250)"/>
+            <column name="attempts" type="INT"/>
+            <column name="content" type="TEXT"/>
+            <column name="delivery_channel" type="TINYINT"/>
+            <column name="delivery_template" type="TINYINT"/>
+            <column name="is_attachment" type="TINYINT"/>
+            <column name="subject" type="VARCHAR(250)"/>
+            <column name="track_id" type="VARCHAR(255)"/>
+            <column name="recipient_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ram (generated)" id="1744605564520-3">
+        <createTable tableName="recipient">
+            <column name="id" type="VARCHAR(255)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="recipientPK"/>
+            </column>
+            <column name="country_code" type="VARCHAR(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(250)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mobile_number" type="VARCHAR(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueBoolean="false" name="status" type="TINYINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ram (generated)" id="1744605564520-4">
+        <addForeignKeyConstraint baseColumnNames="recipient_id" baseTableName="message" constraintName="FKe2lahuk9ley76bqvm409ilhxk" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="recipient" validate="true"/>
+    </changeSet>
+    <changeSet author="ram (generated)" id="1744605564520-5">
+        <addForeignKeyConstraint baseColumnNames="message_id" baseTableName="delivery_history" constraintName="FKk53m4weppbiwpbwp4ghkeag99" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="message" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
